@@ -3,43 +3,60 @@
     <div class="app-content">
       <app-header></app-header>
       <main class="app-main">
-        <app-form></app-form>
+        <router-view></router-view>
       </main>
-      <app-footer></app-footer>
     </div>
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/AppHeader';
-import AppFooter from '@/components/AppFooter';
-import AppForm from "@/components/AppForm";
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
+
+  created() {
+    this.fetchPosts()
+    this.fetchNews()
+  },
+
+  methods: {
+    ...mapActions({
+      fetchPosts:'fetchGames',
+      fetchNews:'fetchNews',
+    })
+  },
+
+  computed: {
+    ...mapState({
+      games:state => state.games,
+      current:state => state.currentGame,
+      status:state => state.status,
+    }),
+
+    ...mapGetters({
+      currentGames:'getGames',
+    })
+  },
+
   components: {
     AppHeader,
-    AppForm,
-    AppFooter,
   }
 }
 </script>
 
-<style>
+<style scoped>
 .app-wrapper {
-  @apply base_container;
-  height: 100vh;
-  width: 100vw;
+  @apply base_container w-screen h-screen;
 }
 
 .app-content {
-  @apply base_container flex-col;
-  width: 100%;
-  height: 100%;
+  @apply flex flex-col w-full h-full gap-10;
 }
 
 .app-main {
-  flex-grow: 1;
+  @apply base_container px-10;
 }
 
 </style>
