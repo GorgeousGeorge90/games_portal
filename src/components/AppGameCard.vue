@@ -1,6 +1,6 @@
 <template>
   <section class="card-container">
-    <div class="card-content">
+    <div v-if="current" class ="card-content">
       <div class="card-main">
         <h3>{{ current.title }}</h3>
         <img :src="current.thumbnail" alt='main'>
@@ -13,6 +13,9 @@
           <img :src="item.image" alt='screenshot'>
         </li>
       </ul>
+    </div>
+    <div v-else>
+      Loading...
     </div>
   </section>
 </template>
@@ -27,7 +30,7 @@ export default {
     ...mapState({
       current:state => state.currentGame,
     })
-  }
+  },
 }
 
 </script>

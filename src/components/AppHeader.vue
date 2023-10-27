@@ -10,24 +10,37 @@
                 @click="$router.push('/news')"
         >news</button>
         <button class="header-navbar-item"
+                @click="$router.push('/giveaways')"
+        >giveaways</button>
+        <button class="header-navbar-item"
                 @click="$router.push('/contacts')"
-        >contats</button>
+        >contacts</button>
       </nav>
+      <button @click="$emit('switch')">
+        switch
+      </button>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-  name: "AppHeader"
+  name: "AppHeader",
+
+  methods: {
+    switchTheme() {
+      this.$emit('switch')
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style>
+
 
 .header-container {
-  @apply base_container w-full bg-black text-white;
-  height: 100px;
+  @apply base_container w-full bg-neutral-900 text-white;
+  min-height: 100px;
 }
 
 .header-content {
@@ -39,11 +52,11 @@ export default {
 }
 
 .header-navbar {
-  @apply base_container gap-2;
+  @apply base_container justify-evenly;
 }
 
 .header-navbar-item {
-  @apply capitalize hover:text-orange-500;
+  @apply capitalize hover:underline transition-all;
 }
 
 </style>

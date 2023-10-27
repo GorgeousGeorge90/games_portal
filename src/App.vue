@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
-    <div class="app-content">
-      <app-header></app-header>
+    <div class="app-content" :class="theme">
+      <app-header @switch="switchTheme"></app-header>
       <main class="app-main">
         <router-view></router-view>
       </main>
@@ -15,17 +15,32 @@ import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      theme:'dark',
+    }
+  },
 
   created() {
     this.fetchPosts()
     this.fetchNews()
+    this.fetchGiveaways()
   },
 
   methods: {
     ...mapActions({
-      fetchPosts:'fetchGames',
-      fetchNews:'fetchNews',
-    })
+      fetchPosts: 'fetchGames',
+      fetchNews: 'fetchNews',
+      fetchGiveaways: 'fetchGiveaways',
+    }),
+
+    switchTheme() {
+      if (this.theme === "dark") {
+        this.theme = "light"
+      } else {
+        this.theme = "dark"
+      }
+    }
   },
 
   computed: {
@@ -52,7 +67,15 @@ export default {
 }
 
 .app-content {
-  @apply flex flex-col w-full h-full gap-10;
+  @apply flex flex-col w-full h-full gap-10 bg-neutral-800;
+}
+
+.dark {
+  @apply bg-neutral-800;
+}
+
+.light {
+  @apply bg-neutral-500;
 }
 
 .app-main {

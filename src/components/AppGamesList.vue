@@ -1,10 +1,15 @@
 <template v-if="games">
   <section class="games-list-container">
     <ul class="games-list-content">
-      <li v-for="game in games" :key="game.id" @click="select(game.id)">
+      <li class="games-list-item"
+          v-for="game in games"
+          :key="game.id"
+          @click="select(game.id)"
+      >
         <AppGamesListItem :id="game.id"
                           :title="game.title"
                           :thumbnail="game.thumbnail"
+                          @click="$router.push(`/${game.id}`)"
         />
       </li>
     </ul>
@@ -49,5 +54,6 @@ export default {
   @apply grid  gap-8
   sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4;
 }
+
 
 </style>

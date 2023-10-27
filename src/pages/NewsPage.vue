@@ -1,13 +1,14 @@
 <template>
-  <app-news></app-news>
+  <app-news-list></app-news-list>
 </template>
 
 <script>
-import AppNews from '@/components/AppNews';
+import AppNewsList from "@/components/AppNewsList";
+
 export default {
   name: "NewsPage",
   components: {
-    AppNews
+    AppNewsList
   }
 }
 </script>

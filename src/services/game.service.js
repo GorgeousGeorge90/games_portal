@@ -5,6 +5,7 @@ class GameService {
     gamesUrl = 'https://mmo-games.p.rapidapi.com/games'
     gameUrl = 'https://mmo-games.p.rapidapi.com/game'
     newsUrl = 'https://mmo-games.p.rapidapi.com/latestnews'
+    giveawaysURL = 'https://mmo-games.p.rapidapi.com/giveaways'
 
 
     constructor() {
@@ -32,6 +33,11 @@ class GameService {
 
     async fetchNews() {
         this.options.url = this.newsUrl
+        return await axios.request(this.options);
+    }
+
+    async fetchGiveaways() {
+        this.options.url = this.giveawaysURL
         return await axios.request(this.options);
     }
 }

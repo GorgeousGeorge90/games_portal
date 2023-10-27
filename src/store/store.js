@@ -10,6 +10,7 @@ export const store = createStore({
             games: [],
             currentGame:null,
             news:[],
+            giveaways:[],
             status:'idle',
             error:null,
         }
@@ -34,12 +35,25 @@ export const store = createStore({
 
         SET_NEWS(state,news) {
             state.news = news
+        },
+
+        SET_GIVEAWAYS(state,giveaways) {
+            state.giveaways = giveaways
+        },
+
+        CLEAR_CURRENT(state) {
+            state.currentGame = null
         }
     },
 
     getters: {
         getGames(state) {
             return state.games.filter((item,i) => i < 12)
+        },
+
+        findCurrent(state,title) {
+            let current = state.games.find((item) => item.title === title )
+            return current ? current: "Sorry we didn't find this game!"
         }
     },
 
@@ -79,5 +93,17 @@ export const store = createStore({
                 commit('SET_STATUS', 'rejected')
             }
         },
+
+        async fetchGiveaways({commit}) {
+            commit('SET_STATUS', 'pending')
+            try {
+                const response = await GameService.fetchGiveaways()
+                commit('SET_GIVEAWAYS', response?.data)
+                commit('SET_STATUS', 'fulfilled')
+            } catch (error) {
+                commit('SET_ERROR', error.message)
+                commit('SET_STATUS', 'rejected')
+            }
+        }
     }
 })

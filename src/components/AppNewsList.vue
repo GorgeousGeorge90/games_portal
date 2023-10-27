@@ -23,7 +23,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: "AppNews",
+  name: "AppNewsList",
 
   computed: {
     ...mapState({
