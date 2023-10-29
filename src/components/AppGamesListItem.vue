@@ -1,21 +1,33 @@
 <template>
-  <div class="game-item-container">
+  <div class="game-item-container"
+       @mouseover="hover = true"
+       @mouseleave="hover = false">
     <div class="game-item-content">
       <figure class="game-item-card">
         <img :src="thumbnail" alt='pic'>
-        <figcaption class="game-item-card-title">{{title}}</figcaption>
+        <figcaption class="game-item-card-title"
+                    v-if="!hover">{{ title }}</figcaption>
+        <figcaption class="game-item-card-title"
+                    v-else>release:{{ release_data }}</figcaption>
       </figure>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "AppGamesListItem",
+  data() {
+    return {
+      hover:false,
+    }
+  },
   props: {
     id:Number,
     title:String,
     thumbnail:String,
+    release_data:String,
   },
 }
 </script>
@@ -31,13 +43,14 @@ export default {
 
 .game-item-card {
   @apply relative cursor-pointer transition
-  hover:scale-110;
+  hover:scale-110 hover:capitalize;
 }
 
 .game-item-card-title {
   @apply base_container absolute bottom-0 w-full text-white py-2
   bg-black bg-opacity-50;
 }
+
 
 img {
   @apply object-fill;

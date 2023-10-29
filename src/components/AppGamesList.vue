@@ -9,6 +9,7 @@
         <AppGamesListItem :id="game.id"
                           :title="game.title"
                           :thumbnail="game.thumbnail"
+                          :release_data="game.release_date"
                           @click="$router.push(`/${game.id}`)"
         />
       </li>
@@ -20,7 +21,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import AppGamesListItem from "@/components/AppGamesListItem";
-
 
 
 export default {

@@ -25,6 +25,7 @@ export default {
     this.fetchPosts()
     this.fetchNews()
     this.fetchGiveaways()
+    this.fetchComments()
   },
 
   methods: {
@@ -32,6 +33,7 @@ export default {
       fetchPosts: 'fetchGames',
       fetchNews: 'fetchNews',
       fetchGiveaways: 'fetchGiveaways',
+      fetchComments: 'fetchComments',
     }),
 
     switchTheme() {
@@ -48,6 +50,7 @@ export default {
       games:state => state.games,
       current:state => state.currentGame,
       status:state => state.status,
+      comments:state => state.comments,
     }),
 
     ...mapGetters({

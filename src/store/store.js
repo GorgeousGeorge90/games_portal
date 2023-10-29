@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
 import GameService from '@/services/game.service';
-
-
+import CommentsService from "@/services/comments.service";
 
 
 export const store = createStore({
@@ -11,6 +10,7 @@ export const store = createStore({
             currentGame:null,
             news:[],
             giveaways:[],
+            comments:[],
             status:'idle',
             error:null,
         }
@@ -43,6 +43,18 @@ export const store = createStore({
 
         CLEAR_CURRENT(state) {
             state.currentGame = null
+        },
+
+        SET_COMMENTS(state,comments) {
+            state.comments = comments
+        },
+
+        ADD_COMMENT(state,comment) {
+            state.comments.push(comment)
+        },
+
+        DELETE_COMMENT(state,id) {
+            state.comments = state.comments.filter(comment => comment.id !== id)
         }
     },
 
@@ -54,6 +66,10 @@ export const store = createStore({
         findCurrent(state,title) {
             let current = state.games.find((item) => item.title === title )
             return current ? current: "Sorry we didn't find this game!"
+        },
+
+        getComments(state) {
+            return state.comments
         }
     },
 
@@ -104,6 +120,39 @@ export const store = createStore({
                 commit('SET_ERROR', error.message)
                 commit('SET_STATUS', 'rejected')
             }
+        },
+
+        async fetchComments({commit}) {
+            commit('SET_STATUS', 'pending')
+            const response = await CommentsService.fetchComments()
+            if (response) {
+                commit('SET_COMMENTS', response)
+                commit('SET_STATUS', 'fulfilled')
+            } else {
+                commit('SET_ERROR', "Error!")
+                commit('SET_STATUS', 'rejected')
+            }
+        },
+
+        async addComment({commit},payload) {
+            const { name, comment } = payload
+            commit('SET_STATUS', 'pending')
+            const response = await CommentsService.addComment(name,comment)
+            if (response) {
+                commit('ADD_COMMENT', response[0])
+                commit('SET_STATUS', 'fulfilled')
+            } else {
+                commit('SET_ERROR', "Error!")
+                commit('SET_STATUS', 'rejected')
+            }
+        },
+
+        async deleteComment({commit},id) {
+            commit('SET_STATUS', 'pending')
+            await CommentsService.deleteComment(id).then(()=>{
+                commit('DELETE_COMMENT', id)
+                commit('SET_STATUS', 'fulfilled')
+            })
         }
     }
 })

@@ -8,7 +8,9 @@
 import AppGameCard from "@/components/AppGameCard";
 export default {
   name: "CurrentGamePage",
-  components: {AppGameCard}
+  components: {
+    AppGameCard
+  }
 }
 
 </script>
