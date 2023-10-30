@@ -1,19 +1,11 @@
 <template>
   <section class="about-container">
     <div class="about-content">
-      <section>
-        <h3>About me</h3>
-        <p>
+        <h2 class="about-title">about</h2>
+        <p class="about-text">
           Hello! Nice to meet you! My name is Egor and I am Junior Frontend Developer!
           This small project was created by Vue 3 with TailwindCSS!
         </p>
-      </section>
-      <section>
-        <h3>My socials</h3>
-        <p>
-
-        </p>
-      </section>
     </div>
   </section>
 </template>
@@ -31,7 +23,12 @@ export default {
 }
 
 .about-content {
-  @apply base_container flex-col w-full px-10;
+  @apply base_container flex-col gap-4;
+  text-align: center;
+}
+
+.about-title {
+  @apply capitalize text-xl;
 }
 
 </style>

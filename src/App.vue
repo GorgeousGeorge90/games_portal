@@ -66,11 +66,12 @@ export default {
 
 <style scoped>
 .app-wrapper {
-  @apply base_container w-screen h-screen;
+  @apply base_container w-screen min-h-screen;
 }
 
 .app-content {
-  @apply flex flex-col w-full h-full gap-10 bg-neutral-800;
+  @apply flex flex-col w-full h-full min-h-screen
+  bg-neutral-800;
 }
 
 .dark {
@@ -82,7 +83,7 @@ export default {
 }
 
 .app-main {
-  @apply base_container px-10;
+  @apply base_container p-10;
 }
 
 </style>

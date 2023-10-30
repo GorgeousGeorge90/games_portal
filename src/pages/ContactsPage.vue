@@ -1,8 +1,8 @@
 <template>
   <section class="contacts-container">
     <div class="contacts-content">
-      <h1 class="contacts-title">inform block</h1>
       <app-about></app-about>
+      <app-socials></app-socials>
       <app-comment-form></app-comment-form>
       <app-comments></app-comments>
     </div>
@@ -13,10 +13,12 @@
 import AppAbout from '@/components/AppAbout';
 import AppComments from '@/components/AppCommentsList';
 import AppCommentForm from "@/components/AppCommentForm";
+import AppSocials from "@/components/AppSocials";
 
 export default {
   name: "ContactsPage",
   components: {
+    AppSocials,
     AppCommentForm,
     AppComments,
     AppAbout
@@ -32,11 +34,7 @@ export default {
 }
 
 .contacts-content {
-  @apply base_container flex-col;
-}
-
-.contacts-form {
-
+  @apply base_container flex-col gap-4;
 }
 
 </style>

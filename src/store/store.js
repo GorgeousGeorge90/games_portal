@@ -59,16 +59,16 @@ export const store = createStore({
     },
 
     getters: {
-        getGames(state) {
-            return state.games.filter((item,i) => i < 12)
+        getGames:state => {
+            return state.games.filter((item,i) => i < 16)
         },
 
-        findCurrent(state,title) {
-            let current = state.games.find((item) => item.title === title )
-            return current ? current: "Sorry we didn't find this game!"
+        findCurrent:state => title => {
+            return  state.games.find((item) => item.title.includes(title))
+
         },
 
-        getComments(state) {
+        getComments:state => {
             return state.comments
         }
     },

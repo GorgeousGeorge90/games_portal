@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .base-input {
-  @apply base_container;
+  @apply base_container flex-col gap-1;
 }
 
 </style>
