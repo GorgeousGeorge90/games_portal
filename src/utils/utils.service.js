@@ -2,8 +2,8 @@
 
 class UtilsService {
 
-    cutText(str) {
-        return str.slice(0,str.length - 3)
+    getDate(str) {
+        return new Date(str).getTime()/1000
     }
 }
 

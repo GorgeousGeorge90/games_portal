@@ -6,12 +6,12 @@
           :key="game.id"
           @click="select(game.id)"
       >
-        <AppGamesListItem :id="game.id"
+        <app-games-list-item :id="game.id"
                           :title="game.title"
                           :thumbnail="game.thumbnail"
-                          :release_data="game.release_date"
+                          :release_date="game.release_date"
                           @click="$router.push(`/${game.id}`)"
-        />
+        ></app-games-list-item>
       </li>
     </ul>
   </section>
@@ -21,7 +21,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import AppGamesListItem from "@/components/AppGamesListItem";
-
 
 export default {
   name: "AppGamesList",
@@ -54,6 +53,5 @@ export default {
   @apply grid  gap-8
   sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4;
 }
-
 
 </style>

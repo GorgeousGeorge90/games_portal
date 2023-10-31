@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import GameService from '@/services/game.service';
 import CommentsService from "@/services/comments.service";
+import UtilsService from '@/utils/utils.service';
 
 
 export const store = createStore({
@@ -70,6 +71,11 @@ export const store = createStore({
 
         getComments:state => {
             return state.comments
+        },
+
+        sortByDate:state => {
+            return state.games.sort((a,b) =>
+               UtilsService.getDate(a.realease_date) -  UtilsService.getDate(b.realease_date))
         }
     },
 

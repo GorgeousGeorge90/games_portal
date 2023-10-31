@@ -2,14 +2,16 @@
   <section class="give-container">
     <div class="give-content">
       <ul class="give-list">
-        <li class="give-list-item"
+        <li class="give-list-el"
             v-for="item in giveaways"
             :key="item.id"
         >
-          <img :src="item.thumbnail" alt="logo">
-          <h3>{{ item.title }}</h3>
-          <p v-if="item.keys_left">{{ item.keys_left.slice(0,item.keys_left.length) }}</p>
-          <a :href="item.giveaways_url">{{ item.giveaways_url }}</a>
+         <app-giveaways-list-item :id="item.id"
+                                  :title="item.title"
+                                  :thumbnail="item.thumbnail"
+                                  :keys_left="item.keys_left"
+                                  :giveaway_url="item.giveaway_url"
+         ></app-giveaways-list-item>
         </li>
       </ul>
     </div>
@@ -18,10 +20,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import AppGiveawaysListItem from "@/components/AppGiveawaysListItem";
 
 export default {
   name: "AppGiveawaysList",
-
+  components: {
+    AppGiveawaysListItem
+  },
   computed: {
     ...mapState({
       giveaways:state => state.giveaways
@@ -41,11 +46,8 @@ export default {
 }
 
 .give-list {
-  @apply base_container flex-col;
-}
-
-.give-list-item {
-  @apply base_container;
+  @apply grid grid-cols-1 gap-5 xs:grid-cols-2
+  md:grid-cols-3;
 }
 
 </style>

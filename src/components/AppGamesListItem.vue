@@ -8,7 +8,7 @@
         <figcaption class="game-item-card-title"
                     v-if="!hover">{{ title }}</figcaption>
         <figcaption class="game-item-card-title"
-                    v-else>release:{{ release_data }}</figcaption>
+                    v-else>release:{{ release_date }}</figcaption>
       </figure>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
     id:Number,
     title:String,
     thumbnail:String,
-    release_data:String,
+    release_date:String,
   },
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <section class="contacts-container">
+  <div class="contacts-container">
     <div class="contacts-content">
       <app-about></app-about>
       <app-socials></app-socials>
       <app-comment-form></app-comment-form>
       <app-comments></app-comments>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
