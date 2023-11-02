@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 import GameService from '@/services/game.service';
-import CommentsService from "@/services/comments.service";
+import CommentsService from "@/services/reviews.service";
 import UtilsService from '@/utils/utils.service';
 
 
@@ -11,7 +11,7 @@ export const store = createStore({
             currentGame:null,
             news:[],
             giveaways:[],
-            comments:[],
+            reviews:[],
             status:'idle',
             error:null,
         }
@@ -46,16 +46,16 @@ export const store = createStore({
             state.currentGame = null
         },
 
-        SET_COMMENTS(state,comments) {
-            state.comments = comments
+        SET_REVIEWS(state,reviews) {
+            state.reviews = reviews
         },
 
-        ADD_COMMENT(state,comment) {
-            state.comments.push(comment)
+        ADD_REVIEW(state,review) {
+                state.reviews.push(review)
         },
 
-        DELETE_COMMENT(state,id) {
-            state.comments = state.comments.filter(comment => comment.id !== id)
+        DELETE_REVIEW(state,id) {
+            state.reviews = state.reviews.filter(review => review.id !== id)
         }
     },
 
@@ -69,8 +69,8 @@ export const store = createStore({
 
         },
 
-        getComments:state => {
-            return state.comments
+        getReviews:state => {
+            return state.reviews;
         },
 
         sortByDate:state => {
@@ -128,11 +128,11 @@ export const store = createStore({
             }
         },
 
-        async fetchComments({commit}) {
+        async fetchReviews({commit}) {
             commit('SET_STATUS', 'pending')
-            const response = await CommentsService.fetchComments()
+            const response = await CommentsService.fetchReviews()
             if (response) {
-                commit('SET_COMMENTS', response)
+                commit('SET_REVIEWS', response)
                 commit('SET_STATUS', 'fulfilled')
             } else {
                 commit('SET_ERROR', "Error!")
@@ -140,23 +140,30 @@ export const store = createStore({
             }
         },
 
-        async addComment({commit},payload) {
-            const { name, comment } = payload
+        async addReview({commit,state},payload) {
+            const { review, name } = payload
             commit('SET_STATUS', 'pending')
-            const response = await CommentsService.addComment(name,comment)
+            const response = await CommentsService.addReview(review,name)
             if (response) {
-                commit('ADD_COMMENT', response[0])
-                commit('SET_STATUS', 'fulfilled')
+                if (state.reviews.length === 3) {
+                    await CommentsService.deleteReview(state.reviews[0].id)
+                    commit('DELETE_REVIEW',state.reviews[0].id)
+                    commit('ADD_REVIEW', response[0])
+                    commit('SET_STATUS', 'fulfilled')
+                } else {
+                    commit('ADD_REVIEW', response[0])
+                    commit('SET_STATUS', 'fulfilled')
+                }
             } else {
                 commit('SET_ERROR', "Error!")
                 commit('SET_STATUS', 'rejected')
             }
         },
 
-        async deleteComment({commit},id) {
+        async deleteReview({commit},id) {
             commit('SET_STATUS', 'pending')
-            await CommentsService.deleteComment(id).then(()=>{
-                commit('DELETE_COMMENT', id)
+            await CommentsService.deleteReview(id).then(()=>{
+                commit('DELETE_REVIEW', id)
                 commit('SET_STATUS', 'fulfilled')
             })
         }

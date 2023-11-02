@@ -1,26 +1,29 @@
 <template>
   <div class="contacts-container">
     <div class="contacts-content">
-      <app-about></app-about>
-      <app-socials></app-socials>
-      <app-comment-form></app-comment-form>
-      <app-comments></app-comments>
+      <h2 class="contacts-title">contacts</h2>
+      <div class="contacts-main">
+        <app-about></app-about>
+        <app-socials></app-socials>
+        <app-reviews-form></app-reviews-form>
+        <app-reviews-list></app-reviews-list>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AppAbout from '@/components/AppAbout';
-import AppComments from '@/components/AppCommentsList';
-import AppCommentForm from "@/components/AppCommentForm";
-import AppSocials from "@/components/AppSocials";
+import AppSocials from '@/components/AppSocials';
+import AppReviewsForm from '@/components/AppReviewsForm';
+import AppReviewsList from '@/components/AppReviewsList';
 
 export default {
   name: "ContactsPage",
   components: {
     AppSocials,
-    AppCommentForm,
-    AppComments,
+    AppReviewsForm,
+    AppReviewsList,
     AppAbout
   },
 }
@@ -34,7 +37,17 @@ export default {
 }
 
 .contacts-content {
-  @apply base_container flex-col gap-4;
+  @apply base_container flex-col gap-4 px-10;
+}
+
+.contacts-title {
+  @apply text-2xl text-white capitalize;
+}
+
+.contacts-main {
+  @apply xxs:grid xxs:grid-cols-2 gap-5
+  xxs:grid-rows-[200px_1fr] xxs:justify-start xxs:items-center
+  flex flex-col;
 }
 
 </style>

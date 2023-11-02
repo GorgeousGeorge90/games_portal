@@ -1,10 +1,10 @@
 import supabase from '@/client';
 
 
-class CommentsService {
+class ReviewsService {
     constructor() {}
 
-    async fetchComments() {
+    async fetchReviews() {
         let { data:comments } = await supabase
             .from('games_com')
             .select('*')
@@ -12,19 +12,19 @@ class CommentsService {
         return comments
     }
 
-    async addComment(name,comment) {
+    async addReview(review,name) {
         const { data } = await supabase
             .from('games_com')
             .upsert({
+                review:review,
                 name:name,
-                comment:comment,
             })
             .select()
 
         return data
     }
 
-    async deleteComment(id) {
+    async deleteReview(id) {
         const { error } = await supabase
             .from('games_com')
             .delete()
@@ -35,4 +35,4 @@ class CommentsService {
 
 }
 
-export default new CommentsService()
+export default new ReviewsService()

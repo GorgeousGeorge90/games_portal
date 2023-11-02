@@ -4,8 +4,8 @@
 
 <script>
 
+import AppGameCard from '@/components/AppGameCard';
 
-import AppGameCard from "@/components/AppGameCard";
 export default {
   name: "CurrentGamePage",
   components: {

@@ -48,6 +48,22 @@ export default {
 .give-list {
   @apply grid grid-cols-1 gap-5 xs:grid-cols-2
   md:grid-cols-3;
+  animation: 0.7s go-in ease;
+}
+
+@keyframes go-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(150px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 </style>

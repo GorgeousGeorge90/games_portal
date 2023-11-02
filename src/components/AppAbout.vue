@@ -1,7 +1,7 @@
 <template>
   <section class="about-container">
     <div class="about-content">
-        <h2 class="about-title">about</h2>
+        <h3 class="about-title">about</h3>
         <p class="about-text">
           Hello! Nice to meet you! My name is Egor and I am Junior Frontend Developer!
           This small project was created by Vue 3 with TailwindCSS!
@@ -17,8 +17,9 @@ export default {
 </script>
 
 <style scoped>
+
 .about-container {
-  @apply base_container;
+  @apply base_container text-white;
   max-width: 800px;
 }
 
