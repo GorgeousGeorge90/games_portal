@@ -7,7 +7,6 @@ class GameService {
     newsUrl = 'https://mmo-games.p.rapidapi.com/latestnews'
     giveawaysURL = 'https://mmo-games.p.rapidapi.com/giveaways'
 
-
     constructor() {
         this.options = {
             method: 'GET',
@@ -23,6 +22,16 @@ class GameService {
     async fetchGames() {
             this.options.url = this.gamesUrl
             return await axios.request(this.options);
+    }
+
+    async fetchSortedGames(platform,category,sort) {
+        this.options.url = this.gamesUrl
+        this.options.params = {
+            platform:platform,
+            category:category,
+            'sort-by':sort,
+        }
+        return await axios.request(this.options);
     }
 
     async fetchCurrentGame(id) {

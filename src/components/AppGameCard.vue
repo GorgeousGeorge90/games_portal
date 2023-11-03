@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <ul class="card-list">
+      <ul class="card-list" v-cloak>
         <li class="card-list-item"
             v-for="item in current.screenshots.slice(0,3)"
             :key="item.id">
@@ -100,6 +100,10 @@ img {
 a:hover {
   @apply outline outline-2 rounded-md outline-teal-400
   outline-offset-1;
+}
+
+[v-cloak] {
+  display: none;
 }
 
 </style>

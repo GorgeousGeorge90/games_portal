@@ -1,5 +1,6 @@
 <template>
-  <header class="header-container">
+  <header class="header-container"
+          :class="'theme' + '-' + theme">
     <div class="header-content">
       <h1 class="header-title">bomb games portal</h1>
       <nav class="header-navbar">
@@ -16,25 +17,19 @@
                 @click="$router.push('/contacts')"
         >contacts</button>
       </nav>
-      <button @click="$emit('switch')">
-        switch
-      </button>
-      <form class="header-form"
-            @submit.prevent>
-        <input type="search"
-               v-model="title"
-               aria-label="search"
-               required>
-        <base-button @click="findCurrent(title)">search</base-button>
-      </form>
+      <base-button class="header-switch"
+              @click="$emit('switch')">
+        {{ theme }}
+      </base-button>
+      <app-search-select-form></app-search-select-form>
     </div>
-    <div v-if="error === 'not found!'">{{ error }}</div>
   </header>
 </template>
 
 <script>
 
-import {mapGetters, mapMutations, mapState} from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
+import AppSearchSelectForm from '@/components/AppSearchSelectForm';
 import BaseButton from "@/UI/BaseButton";
 
 
@@ -45,7 +40,15 @@ export default {
       title:''
     }
   },
-  components: {BaseButton},
+
+  props: {
+    theme:String,
+  },
+
+  components: {
+    BaseButton,
+    AppSearchSelectForm,
+  },
 
   computed: {
     ...mapState({
@@ -87,20 +90,30 @@ export default {
 <style>
 
 .header-container {
-  @apply base_container w-full bg-neutral-900 text-white;
-  height: 200px;
+  @apply base_container w-full text-white;
+  height: 150px;
+}
+
+.theme-light {
+  @apply bg-neutral-700;
+}
+
+.theme-dark {
+  @apply bg-neutral-900;
 }
 
 .header-content {
-  @apply grid grid-cols-[1fr_3fr];
+  @apply grid grid-cols-[1fr_3fr_1fr] px-10 items-center justify-center;
 }
 
 .header-title {
   @apply uppercase text-2xl;
+  text-align: center;
 }
 
 .header-navbar {
-  @apply base_container justify-evenly;
+  @apply flex flex-col items-center
+  md:flex-row md:justify-evenly row-span-2 h-full items-end;
 }
 
 .header-navbar-item {
@@ -110,6 +123,11 @@ export default {
 .header-form {
   @apply base_container gap-1 flex-col text-black;
 }
+
+.header-switch {
+  width: 100px;
+}
+
 
 input {
   @apply rounded-md;

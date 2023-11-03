@@ -1,7 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app-content" :class="theme">
-      <app-header @switch="switchTheme"></app-header>
+      <app-header @switch="switchTheme"
+                  :theme="theme"
+      ></app-header>
       <main class="app-main">
         <router-view></router-view>
       </main>

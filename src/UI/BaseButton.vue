@@ -15,7 +15,7 @@ export default {
 .base-btn {
   @apply base_container capitalize p-2 text-xs
   text-white bg-black rounded-md
-  hover:bg-white hover:text-black;
+  hover:bg-white hover:text-black font-semibold;
 }
 
 

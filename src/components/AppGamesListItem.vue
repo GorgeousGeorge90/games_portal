@@ -48,9 +48,8 @@ export default {
 
 .game-item-card-title {
   @apply base_container absolute bottom-0 w-full text-white py-2
-  bg-black bg-opacity-50;
+  bg-black bg-opacity-50 font-serif;
 }
-
 
 img {
   @apply object-fill;

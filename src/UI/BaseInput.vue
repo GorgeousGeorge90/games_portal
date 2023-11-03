@@ -1,6 +1,6 @@
 <template>
   <div class="base-input">
-    <label :for="id">{{ name }}</label>
+    <label :for="id"><slot></slot></label>
     <input :type="type"
            :value="modelValue"
            @input="updateInput"
@@ -15,7 +15,6 @@ export default {
   name: "BaseInput",
   props: {
     id:String,
-    name:String,
     type:String,
     modelValue:[String,Number],
   },

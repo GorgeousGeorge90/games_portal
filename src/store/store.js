@@ -66,7 +66,6 @@ export const store = createStore({
 
         findCurrent:state => title => {
             return  state.games.find((item) => item.title.includes(title))
-
         },
 
         getReviews:state => {
@@ -84,6 +83,19 @@ export const store = createStore({
             commit('SET_STATUS', 'pending')
             try {
                 const response = await GameService.fetchGames()
+                commit('SET_GAMES', response?.data)
+                commit('SET_STATUS', 'fulfilled')
+            } catch (error) {
+                commit('SET_ERROR', error.message)
+                commit('SET_STATUS', 'rejected')
+            }
+        },
+
+        async fetchSortedGames({commit},payload) {
+            const { platform,category,sort } = payload
+            commit('SET_STATUS', 'pending')
+            try {
+                const response = await GameService.fetchSortedGames( platform,category,sort )
                 commit('SET_GAMES', response?.data)
                 commit('SET_STATUS', 'fulfilled')
             } catch (error) {
