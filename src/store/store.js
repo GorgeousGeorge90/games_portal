@@ -65,7 +65,7 @@ export const store = createStore({
         },
 
         findCurrent:state => title => {
-            return  state.games.find((item) => item.title.includes(title))
+            return state.games.find((item) => item.title.toLowerCase().includes(title.toLowerCase()))
         },
 
         getReviews:state => {

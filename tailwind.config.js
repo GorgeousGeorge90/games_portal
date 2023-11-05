@@ -8,6 +8,7 @@ module.exports = {
             'xs':'500px',
             'xxs':'660px',
             's':'780px',
+            'mid':'860px',
         }
     },
   },

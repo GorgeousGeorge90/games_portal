@@ -13,7 +13,7 @@
 
 <script>
 import AppHeader from '@/components/AppHeader';
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -28,6 +28,10 @@ export default {
     this.fetchNews()
     this.fetchGiveaways()
     this.fetchReviews()
+  },
+
+  mounted() {
+    this.$router.push('/');
   },
 
   methods: {
@@ -48,13 +52,6 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      games:state => state.games,
-      current:state => state.currentGame,
-      status:state => state.status,
-      reviews:state => state.reviews,
-    }),
-
     ...mapGetters({
       currentGames:'getGames',
     })

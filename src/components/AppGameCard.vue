@@ -34,16 +34,26 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: "AppGameCard",
+
+  unmounted() {
+    this.clear()
+  },
 
   computed: {
     ...mapState({
       current:state => state.currentGame,
     })
   },
+
+  methods: {
+    ...mapMutations({
+      clear:'CLEAR_CURRENT',
+    })
+  }
 }
 
 </script>

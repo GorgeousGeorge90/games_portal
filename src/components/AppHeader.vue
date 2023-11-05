@@ -23,15 +23,21 @@
       <form @submit.prevent
             class="header-form">
         <input class="header-form-input"
-                    type="text"
+                    type="search"
                     placeholder="Enter game"
-                    v-model="title"/>
+                    v-model="title"
+                    required
+        />
         <img class="header-form-btn"
              src="../assets/img/search.svg"
              alt="search"
-             role="button"
-             @click="findCurrent(title)"/>
+             type="button"
+             @click="findCurrent"/>
       </form>
+      <div class="header-error"
+          v-if="error ==='not found'">
+        {{ error }}
+      </div>
     </div>
   </header>
 </template>
@@ -84,18 +90,20 @@ export default {
       setError:'SET_ERROR',
     }),
 
-    findCurrent(title) {
-      let current = this.currentGame(title)
-      if (current) {
-        this.setCurrent(current)
-        this.title = ''
-        this.$router.push(`/${current.id}`)
-      } else {
-        this.setError('not found')
-        this.title = ''
-        setTimeout(()=> {
-          this.setError(null)
-        },3000)
+    findCurrent() {
+      if (this.title) {
+        let current = this.currentGame(this.title)
+        if (current) {
+          this.setCurrent(current)
+          this.title = ''
+          this.$router.push(`/${current.id}`)
+        } else {
+          this.setError('not found')
+          this.title = ''
+          setTimeout(() => {
+            this.setError(null)
+          }, 3000)
+        }
       }
     }
   }
@@ -118,11 +126,12 @@ export default {
 }
 
 .header-content {
-  @apply grid grid-cols-[1fr_3fr_1fr] px-10 items-center justify-center;
+  @apply grid grid-cols-[1fr_3fr_1fr] px-10 relative
+  items-center justify-center scale-90 xxs:scale-100;
 }
 
 .header-title {
-  @apply uppercase text-2xl;
+  @apply uppercase text-base xxs:text-2xl;
   text-align: center;
 }
 
@@ -132,7 +141,8 @@ export default {
 
 .header-navbar-list {
   @apply flex flex-col items-center
-  md:flex-row md:justify-evenly row-span-2 h-full items-end;
+  mid:flex-row md:justify-evenly row-span-2 h-full items-end;
+  text-align:center;
 }
 
 .header-navbar-list-item {
@@ -144,7 +154,7 @@ export default {
 }
 
 .header-form {
-  @apply base_container gap-1 text-black relative;
+  @apply base_container gap-1 text-black relative opacity-0 xxs:opacity-100;
   grid-column-start:3;
   width:100px;
 }
@@ -152,24 +162,25 @@ export default {
 .header-form-input {
   @apply w-full rounded-md p-1 text-sm
   placeholder:text-xs placeholder:p-1 placeholder:italic
-  focus:outline focus:outline-teal-400 focus:outline-2 focus:outline-offset-1;
+  focus:outline focus:outline-teal-400 focus:outline-2 focus:outline-offset-1 z-0;
   height: 30px;
 }
 
-
-
 .header-form-btn {
-  @apply absolute right-1 z-50;
+  @apply absolute -right-6 cursor-pointer invert
+  hover:scale-110 transition;
   width:20px;
 }
 
 .header-switch {
-  width: 100px;
+  @apply opacity-0 xxs:opacity-100;
+  width:120px;
 }
 
-/*input {*/
-/*  @apply rounded-md;*/
-/*  min-height: 30px;*/
-/*}*/
+.header-error {
+  @apply text-red-600 capitalize font-bold
+  absolute -bottom-5;
+  left:50%;
+}
 
 </style>
