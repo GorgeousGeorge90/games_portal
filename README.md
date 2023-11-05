@@ -57,4 +57,4 @@ and connect me in my socials!_
 ***
 
 For feedback:`Gambit47@yandex.ru`<br>
-Deployed:`https://kino-monster.vercel.app/`
+Deployed:`https://games-portal.vercel.app/`
