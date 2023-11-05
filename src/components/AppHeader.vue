@@ -4,24 +4,34 @@
     <div class="header-content">
       <h1 class="header-title">bomb games portal</h1>
       <nav class="header-navbar">
-        <button class="header-navbar-item"
-                @click="$router.push('/')"
-        >top games</button>
-        <button class="header-navbar-item"
-                @click="$router.push('/news')"
-        >news</button>
-        <button class="header-navbar-item"
-                @click="$router.push('/giveaways')"
-        >giveaways</button>
-        <button class="header-navbar-item"
-                @click="$router.push('/contacts')"
-        >contacts</button>
+        <ul class="header-navbar-list">
+          <li v-for="item in links"
+              :key="item.id">
+            <router-link class="header-navbar-list-item"
+                         :to="item.url"
+                         active-class="active-link">
+              {{ item.name }}
+            </router-link>
+          </li>
+        </ul>
       </nav>
       <base-button class="header-switch"
-              @click="$emit('switch')">
+                   @click="$emit('switch')">
         {{ theme }}
       </base-button>
       <app-search-select-form></app-search-select-form>
+      <form @submit.prevent
+            class="header-form">
+        <input class="header-form-input"
+                    type="text"
+                    placeholder="Enter game"
+                    v-model="title"/>
+        <img class="header-form-btn"
+             src="../assets/img/search.svg"
+             alt="search"
+             role="button"
+             @click="findCurrent(title)"/>
+      </form>
     </div>
   </header>
 </template>
@@ -32,11 +42,16 @@ import { mapGetters, mapMutations, mapState } from 'vuex';
 import AppSearchSelectForm from '@/components/AppSearchSelectForm';
 import BaseButton from "@/UI/BaseButton";
 
-
 export default {
   name: "AppHeader",
   data() {
     return {
+      links: [
+          { id:1, name:'top games', url:'/'},
+          { id:2, name:'news', url:'/news'},
+          { id:3, name:'giveaways', url:'/giveaways'},
+          { id:4, name:'contacts', url:'/contacts'},
+      ],
       title:''
     }
   },
@@ -112,26 +127,49 @@ export default {
 }
 
 .header-navbar {
+  @apply row-span-2;
+}
+
+.header-navbar-list {
   @apply flex flex-col items-center
   md:flex-row md:justify-evenly row-span-2 h-full items-end;
 }
 
-.header-navbar-item {
-  @apply capitalize hover:underline transition-all;
+.header-navbar-list-item {
+  @apply capitalize hover:underline;
+}
+
+.active-link {
+  @apply font-bold;
 }
 
 .header-form {
-  @apply base_container gap-1 flex-col text-black;
+  @apply base_container gap-1 text-black relative;
+  grid-column-start:3;
+  width:100px;
+}
+
+.header-form-input {
+  @apply w-full rounded-md p-1 text-sm
+  placeholder:text-xs placeholder:p-1 placeholder:italic
+  focus:outline focus:outline-teal-400 focus:outline-2 focus:outline-offset-1;
+  height: 30px;
+}
+
+
+
+.header-form-btn {
+  @apply absolute right-1 z-50;
+  width:20px;
 }
 
 .header-switch {
   width: 100px;
 }
 
-
-input {
-  @apply rounded-md;
-  min-height: 30px;
-}
+/*input {*/
+/*  @apply rounded-md;*/
+/*  min-height: 30px;*/
+/*}*/
 
 </style>

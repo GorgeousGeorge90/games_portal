@@ -11,7 +11,7 @@
            ></app-reviews-list-item>
         </li>
       </TransitionGroup>
-      <p v-else>There is no reviews!</p>
+      <p v-else class="reviews-no">There is no reviews!</p>
     </div>
   </section>
 </template>
@@ -47,6 +47,10 @@ export default {
 
 .reviews-list-list {
   @apply grid grid-rows-3 gap-2;
+}
+
+.reviews-no {
+  @apply font-serif text-white italic;
 }
 
 .list-enter-active,

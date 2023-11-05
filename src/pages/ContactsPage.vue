@@ -34,6 +34,7 @@ export default {
 
 .contacts-container {
   @apply base_container;
+  animation: 1s bounce-in ease-in-out;
 }
 
 .contacts-content {
@@ -50,4 +51,15 @@ export default {
   flex flex-col;
 }
 
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 </style>

@@ -94,6 +94,7 @@ export const store = createStore({
         async fetchSortedGames({commit},payload) {
             const { platform,category,sort } = payload
             commit('SET_STATUS', 'pending')
+            await UtilsService.delay(3000)
             try {
                 const response = await GameService.fetchSortedGames( platform,category,sort )
                 commit('SET_GAMES', response?.data)

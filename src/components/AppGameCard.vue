@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <ul class="card-list" v-cloak>
+      <ul class="card-list" v-if="current.screenshots">
         <li class="card-list-item"
             v-for="item in current.screenshots.slice(0,3)"
             :key="item.id">
